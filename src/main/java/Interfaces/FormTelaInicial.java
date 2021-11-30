@@ -30,6 +30,7 @@ public class FormTelaInicial extends javax.swing.JFrame {
         btCriarProjeto = new javax.swing.JButton();
         btAbrirProjeto = new javax.swing.JButton();
         btGerenciarUsuario = new javax.swing.JButton();
+        btSair = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -47,10 +48,17 @@ public class FormTelaInicial extends javax.swing.JFrame {
             }
         });
 
-        btGerenciarUsuario.setText("Gerenciar Usuario");
+        btGerenciarUsuario.setText("Gerenciar Usuários");
         btGerenciarUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btGerenciarUsuarioActionPerformed(evt);
+            }
+        });
+
+        btSair.setText("Sair");
+        btSair.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btSairActionPerformed(evt);
             }
         });
 
@@ -60,12 +68,16 @@ public class FormTelaInicial extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btGerenciarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                        .addComponent(btCriarProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btAbrirProjeto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
+                    .addComponent(btCriarProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btAbrirProjeto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 316, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btGerenciarUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(29, Short.MAX_VALUE))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(52, 52, 52)
+                    .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(191, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -74,9 +86,14 @@ public class FormTelaInicial extends javax.swing.JFrame {
                 .addComponent(btCriarProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btAbrirProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
                 .addComponent(btGerenciarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                    .addContainerGap(197, Short.MAX_VALUE)
+                    .addComponent(btSair, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGap(20, 20, 20)))
         );
 
         pack();
@@ -96,9 +113,9 @@ public class FormTelaInicial extends javax.swing.JFrame {
     
     
     private void btGerenciarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGerenciarUsuarioActionPerformed
-        FormCadastroUsuario telaCadastro = new FormCadastroUsuario();
-        telaCadastro.setVisible(true);
-        telaCadastro.setNomeUsuario(nomeUsuario);
+        FormGerenciarUsuario telaGerenciar = new FormGerenciarUsuario();
+        telaGerenciar.setVisible(true);
+        telaGerenciar.setNomeUsuario(nomeUsuario);
         setVisible(false);
     }//GEN-LAST:event_btGerenciarUsuarioActionPerformed
 
@@ -120,6 +137,14 @@ public class FormTelaInicial extends javax.swing.JFrame {
         
         setVisible(false);
     }//GEN-LAST:event_btCriarProjetoActionPerformed
+
+    private void btSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSairActionPerformed
+        FormLogin telaLogin = new FormLogin();
+        
+        telaLogin.setVisible(true);
+        
+        setVisible(false);
+    }//GEN-LAST:event_btSairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -160,5 +185,6 @@ public class FormTelaInicial extends javax.swing.JFrame {
     private javax.swing.JButton btAbrirProjeto;
     private javax.swing.JButton btCriarProjeto;
     private javax.swing.JButton btGerenciarUsuario;
+    private javax.swing.JButton btSair;
     // End of variables declaration//GEN-END:variables
 }

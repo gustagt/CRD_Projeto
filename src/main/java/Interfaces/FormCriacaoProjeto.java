@@ -58,7 +58,7 @@ public class FormCriacaoProjeto extends javax.swing.JFrame {
             }
         });
 
-        btCancelar.setText("Cancelar");
+        btCancelar.setText("Voltar");
         btCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btCancelarActionPerformed(evt);
