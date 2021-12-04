@@ -21,6 +21,7 @@ import javax.swing.table.DefaultTableModel;
 public class FormGerenciarUsuario extends javax.swing.JFrame {
     
     Usuario usuarioForm;
+    Usuario usuario = new Usuario();
     
     private String nomeUsuario;
 
@@ -70,23 +71,32 @@ public class FormGerenciarUsuario extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUsuarios = new javax.swing.JTable();
-        btCadastrarUsuario = new javax.swing.JButton();
         btVoltarTelaInicial = new javax.swing.JButton();
         btnEditar = new javax.swing.JButton();
         btnExcluirUsuario = new javax.swing.JButton();
         lbTitulo = new javax.swing.JLabel();
         btnAtualizarTabelaUsuario = new javax.swing.JButton();
-        txtUsuarioAtual = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        btCadastrar = new javax.swing.JButton();
+        lbNome = new javax.swing.JLabel();
+        lbEmail = new javax.swing.JLabel();
+        lbSenha = new javax.swing.JLabel();
+        txfNomeCompleto = new javax.swing.JTextField();
+        txfEmailUsuario = new javax.swing.JTextField();
+        passSenha = new javax.swing.JPasswordField();
+        jSeparator1 = new javax.swing.JSeparator();
+        lbNomeUsuario = new javax.swing.JLabel();
+        txfNomeUsuario = new javax.swing.JTextField();
+        txfTelefone = new javax.swing.JTextField();
+        lbSenha1 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "id", "nome_completo", "email", "telefone", "nome_usuario", "senha"
+                "nome_completo", "email", "telefone", "nome_usuario", "senha"
             }
         ));
         tblUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -98,14 +108,7 @@ public class FormGerenciarUsuario extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jScrollPane1);
 
-        btCadastrarUsuario.setText("Cadastrar Novo Usuario");
-        btCadastrarUsuario.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btCadastrarUsuarioActionPerformed(evt);
-            }
-        });
-
-        btVoltarTelaInicial.setText("Voltar");
+        btVoltarTelaInicial.setText("Cancelar");
         btVoltarTelaInicial.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btVoltarTelaInicialActionPerformed(evt);
@@ -136,116 +139,174 @@ public class FormGerenciarUsuario extends javax.swing.JFrame {
             }
         });
 
-        txtUsuarioAtual.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        txtUsuarioAtual.addActionListener(new java.awt.event.ActionListener() {
+        btCadastrar.setText("Cadastrar");
+        btCadastrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsuarioAtualActionPerformed(evt);
-            }
-        });
-        txtUsuarioAtual.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtUsuarioAtualKeyReleased(evt);
+                btCadastrarActionPerformed(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Arial", 0, 14)); // NOI18N
-        jLabel1.setText("Usuario");
+        lbNome.setText("Nome:");
+
+        lbEmail.setText("Email:");
+
+        lbSenha.setText("Telefone");
+
+        txfNomeCompleto.setToolTipText("");
+        txfNomeCompleto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfNomeCompletoActionPerformed(evt);
+            }
+        });
+
+        txfEmailUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfEmailUsuarioActionPerformed(evt);
+            }
+        });
+
+        passSenha.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passSenhaActionPerformed(evt);
+            }
+        });
+
+        lbNomeUsuario.setText("Nome de Usuario:");
+
+        txfTelefone.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfTelefoneActionPerformed(evt);
+            }
+        });
+
+        lbSenha1.setText("Senha:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jSeparator1)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(btVoltarTelaInicial)
-                        .addGap(54, 54, 54)
-                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnExcluirUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(47, 47, 47)
-                        .addComponent(btnAtualizarTabelaUsuario))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(62, 62, 62)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 433, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtUsuarioAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 267, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(btCadastrarUsuario)))
-                .addContainerGap(55, Short.MAX_VALUE))
+                        .addComponent(btVoltarTelaInicial)
+                        .addGap(34, 34, 34)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41)
+                        .addComponent(btnExcluirUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(btCadastrar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnAtualizarTabelaUsuario)
+                        .addContainerGap(29, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lbSenha, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbNome, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbEmail, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(txfNomeCompleto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(txfEmailUsuario, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 239, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbNomeUsuario)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(28, 28, 28)
+                                        .addComponent(lbSenha1)))
+                                .addGap(11, 11, 11))
+                            .addComponent(txfNomeUsuario, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(passSenha, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(56, 56, 56))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(175, 175, 175))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 484, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(167, 167, 167))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(39, 39, 39)
+                .addGap(31, 31, 31)
                 .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btCadastrarUsuario)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtUsuarioAtual, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36)
+                .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbNome)
+                            .addComponent(txfNomeCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbEmail)
+                            .addComponent(txfEmailUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(lbSenha)
+                            .addComponent(txfTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(lbNomeUsuario)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(32, 32, 32)
+                                .addComponent(lbSenha1))
+                            .addComponent(txfNomeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(passSenha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btVoltarTelaInicial)
                     .addComponent(btnEditar)
                     .addComponent(btnExcluirUsuario)
-                    .addComponent(btnAtualizarTabelaUsuario))
-                .addGap(26, 26, 26))
+                    .addComponent(btnAtualizarTabelaUsuario)
+                    .addComponent(btCadastrar))
+                .addGap(27, 27, 27))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btCadastrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarUsuarioActionPerformed
-        FormCadastroUsuario telaCadastroUsuario = new FormCadastroUsuario();
-        
-        telaCadastroUsuario.setVisible(true);
-        
-        setVisible(false);
-    }//GEN-LAST:event_btCadastrarUsuarioActionPerformed
-
     private void btVoltarTelaInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarTelaInicialActionPerformed
-
-        FormTelaInicial telaInicial = new FormTelaInicial();
-        
-        telaInicial.setNomeUsuario(nomeUsuario);
-        telaInicial.setVisible(true);
-        
         setVisible(false);
     }//GEN-LAST:event_btVoltarTelaInicialActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
         
-        FormEditarUsuario telaEditar = new FormEditarUsuario();
-                    
         if (tblUsuarios.getSelectedRow() != -1){
             
-            Usuario usuario = new Usuario();
+            usuario.setNomeCompleto(txfNomeCompleto.getText());
+            usuario.setEmail(txfEmailUsuario.getText());
+            usuario.setTelefone(Integer.parseInt(txfTelefone.getText()));
+            usuario.setNomeUsuario(txfNomeUsuario.getText());
+            usuario.setSenha(passSenha.getText());
 
-
-            usuario.setId((int)tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 0));
-
-
-            usuario.deletarUsuario(usuario);
-            usuario.recuperarListaUsuarios();
+            usuario.setId((int)tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(),0));
             
-        } else{
-            JOptionPane.showMessageDialog(null, "Selecione uma linha para excluir");
-        }
-        
-        telaEditar.setVisible(true);
+            
+            usuario.editarUsuario(usuario);
+            
+            txfNomeCompleto.setText("");
+            txfNomeUsuario.setText("");
+            passSenha.setText("");
+            txfTelefone.setText("");
+            txfEmailUsuario.setText("");
+
+            
+        }    
+  
 
     }//GEN-LAST:event_btnEditarActionPerformed
 
@@ -253,14 +314,15 @@ public class FormGerenciarUsuario extends javax.swing.JFrame {
             
         if (tblUsuarios.getSelectedRow() != -1){
             
-            Usuario usuario = new Usuario();
-
-
             usuario.setId((int)tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 0));
 
-
             usuario.deletarUsuario(usuario);
-            usuario.recuperarListaUsuarios();
+           
+            txfNomeCompleto.setText("");
+            txfNomeUsuario.setText("");
+            passSenha.setText("");
+            txfTelefone.setText("");
+            txfEmailUsuario.setText("");
             
         } else{
             JOptionPane.showMessageDialog(null, "Selecione uma linha para excluir");
@@ -291,21 +353,65 @@ public class FormGerenciarUsuario extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnAtualizarTabelaUsuarioActionPerformed
 
-    private void txtUsuarioAtualActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsuarioAtualActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsuarioAtualActionPerformed
-
-    private void txtUsuarioAtualKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsuarioAtualKeyReleased
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsuarioAtualKeyReleased
-
     private void tblUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblUsuariosMouseClicked
         if(tblUsuarios.getSelectedRow() != -1){
 
-            txtUsuarioAtual.setText(tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 1).toString());
+            txfNomeCompleto.setText(tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 1).toString());
+            txfEmailUsuario.setText(tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 2).toString());
+            txfTelefone.setText(tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 3).toString());
+            txfNomeUsuario.setText(tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 4).toString());
+            passSenha.setText(tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(), 5).toString());
+
             
         }        
     }//GEN-LAST:event_tblUsuariosMouseClicked
+
+    private void btCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCadastrarActionPerformed
+        Usuario usuario = new Usuario();
+
+        usuario.setNomeCompleto(txfNomeCompleto.getText());
+        usuario.setEmail(txfEmailUsuario.getText());
+        usuario.setSenha(passSenha.getText());
+        usuario.setNomeUsuario(txfNomeUsuario.getText());
+        usuario.setTelefone(Integer.parseInt(txfTelefone.getText()));
+
+        if(usuario.getNomeCompleto().length()==0){
+            JOptionPane.showMessageDialog(null,"O campo nome está vazio");
+        }else if(usuario.getEmail().length()==0){
+            JOptionPane.showMessageDialog(null,"O campo email está vazio");
+        }else if(usuario.getSenha().length()<=7){
+            JOptionPane.showMessageDialog(null,"O campo senha está preenchido errado");
+        }else if(usuario.getNomeUsuario().length()==0){
+            JOptionPane.showMessageDialog(null,"O campo nome de usuario está vazio");
+        }else if(usuario.getTelefone()<=0){
+            JOptionPane.showMessageDialog(null,"O campo telefone está vazio");
+        }else {
+            usuario.inserirUsario();
+        }
+        
+        txfNomeCompleto.setText("");
+        txfNomeUsuario.setText("");
+        passSenha.setText("");
+        txfTelefone.setText("");
+        txfEmailUsuario.setText("");
+
+    }//GEN-LAST:event_btCadastrarActionPerformed
+
+    private void txfNomeCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfNomeCompletoActionPerformed
+
+    }//GEN-LAST:event_txfNomeCompletoActionPerformed
+
+    private void txfEmailUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfEmailUsuarioActionPerformed
+
+    }//GEN-LAST:event_txfEmailUsuarioActionPerformed
+
+    private void passSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passSenhaActionPerformed
+
+    }//GEN-LAST:event_passSenhaActionPerformed
+
+    private void txfTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfTelefoneActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfTelefoneActionPerformed
 
     /**
      * @param args the command line arguments
@@ -346,16 +452,25 @@ public class FormGerenciarUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btCadastrarUsuario;
+    private javax.swing.JButton btCadastrar;
     private javax.swing.JButton btVoltarTelaInicial;
     private javax.swing.JButton btnAtualizarTabelaUsuario;
     private javax.swing.JButton btnEditar;
     private javax.swing.JButton btnExcluirUsuario;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lbEmail;
+    private javax.swing.JLabel lbNome;
+    private javax.swing.JLabel lbNomeUsuario;
+    private javax.swing.JLabel lbSenha;
+    private javax.swing.JLabel lbSenha1;
     private javax.swing.JLabel lbTitulo;
+    private javax.swing.JPasswordField passSenha;
     private javax.swing.JTable tblUsuarios;
-    private javax.swing.JTextField txtUsuarioAtual;
+    private javax.swing.JTextField txfEmailUsuario;
+    private javax.swing.JTextField txfNomeCompleto;
+    private javax.swing.JTextField txfNomeUsuario;
+    private javax.swing.JTextField txfTelefone;
     // End of variables declaration//GEN-END:variables
 }

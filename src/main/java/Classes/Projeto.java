@@ -5,6 +5,7 @@
 package Classes;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -21,6 +22,16 @@ public class Projeto {
     private String descricaoProj;
     private String usuarioProprietario;
 
+    ConexaoBD conexao = new ConexaoBD();
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getNomeProj() {
         return nomeProj;
     }
@@ -45,36 +56,31 @@ public class Projeto {
         this.usuarioProprietario = usuarioProprietario;
     }
     
-     public void inserirProj() {
-        String sql = "insert into projetos (id_projeto, nome_projeto, descricao, usuario_proprietario) values (default, '"+nomeProj+"', '"+descricaoProj+"', '"+usuarioProprietario+"');";
+     public void inserirProj(Projeto p) {
+        String sql = ("INSERT INTO projetos (id_projeto, nome_projeto, descricao, usuario_proprietario) values (default, ?,?,?)");
                                                                                               
-        try{    
+        try{
+
+            Connection conn = conexao.criarConexao();
+            PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
             
-        ConexaoBD conexao = new ConexaoBD();
-        
-        Connection conn = conexao.criarConexao();
-        
-        Statement stm = conn.createStatement();
-        
-        stm.executeUpdate(sql);
-        
-        conexao.fecharConexao();
-        
-        JOptionPane.showMessageDialog(null, "Projeto criado com sucesso.");
-        
+            stm.setString(1, p.getNomeProj());
+            stm.setString(2, p.getDescricaoProj());
+            stm.setString(3, p.getUsuarioProprietario());
+
+            
+            stm.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Projeto inserido com sucesso.");
+
         }catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Não foi possivel criar o projeto.");
+            JOptionPane.showMessageDialog(null, "Não foi possivel inserir o projeto." + e);
+        } finally{
+            conexao.fecharConexao();
         }
         
       }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
      
      public Vector recuperarListaProjetos(){
 
@@ -120,27 +126,30 @@ public class Projeto {
         
     }
     
-    public void editarProj() {
-        String sql = "UPDATE projetos SET nome_projeto='"+nomeProj+"', descricao='"+descricaoProj+"', usuario_proprietario='"+usuarioProprietario+"' WHERE id_projeto="+id;
-                                                                                              
-        try{    
+    public void editarProj(Projeto p) {
+        String sql = "UPDATE projetos SET nome_projeto=?, descricao=?, usuario_proprietario=? WHERE id_projeto=?";
+        
+        try{
+
+            Connection conn = conexao.criarConexao();
+            PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
             
-        ConexaoBD conexao = new ConexaoBD();
-        
-        Connection conn = conexao.criarConexao();
-        
-        Statement stm = conn.createStatement();
-        
-        stm.executeUpdate(sql);
-        
-        conexao.fecharConexao();
-        
-        JOptionPane.showMessageDialog(null, "Projeto editado com sucesso.");
+            stm.setString(1, p.getNomeProj());
+            stm.setString(2, p.getDescricaoProj());
+            stm.setString(3, p.getUsuarioProprietario());
+            stm.setInt(4, p.getId());
+
+            
+            stm.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Projeto atualizado com sucesso.");
         
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Não foi possivel editar o projeto.");
+        } finally{
+            conexao.fecharConexao();
         }
-        
+
       }
     
         public void excluirProj(int idTroca) {

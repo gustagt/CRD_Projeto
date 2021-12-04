@@ -135,11 +135,11 @@ public class FormLogin extends javax.swing.JFrame {
             if(rs.next()){
                 JOptionPane.showMessageDialog(null, "Bem vindo: " + usuario.getNomeUsuario());
                 
-                FormTelaInicial telaInicial = new FormTelaInicial();
+                FormGerenciarProjeto formGerenciarProjeto = new FormGerenciarProjeto();
                 
-                telaInicial.setNomeUsuario(usuario.getNomeUsuario());
+                formGerenciarProjeto.setNomeUsuario(usuario.getNomeUsuario());
                         
-                telaInicial.setVisible(true);
+                formGerenciarProjeto.setVisible(true);
                 setVisible(false);
             } else{
                 JOptionPane.showMessageDialog(null, "Esse usuário NÃO existe");

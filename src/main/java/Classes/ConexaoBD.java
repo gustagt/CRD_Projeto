@@ -15,9 +15,9 @@ public class ConexaoBD {
     
         private String hostname = "remotemysql.com";
         private int port = 3306;
-        private String dbname = "9d9398m27x";
-        private String username = "9d9398m27x";
-        private String password = "nlStMP7fUK";
+        private String dbname = "M8loRP2Pjm";
+        private String username = "M8loRP2Pjm";
+        private String password = "0sk61Xww1i";
         
         private Connection conexao;
         

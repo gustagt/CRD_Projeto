@@ -80,21 +80,20 @@ public class Usuario {
         String sql = "INSERT INTO usuarios ( id , nome_completo, nome_usuario, senha, email, telefone) VALUES (default,'"+nomeCompleto+"', '"+nomeUsuario+"', '"+senha+"', '"+email+"', "+telefone+");";
                                                                                               
         try{    
-            
-        ConexaoBD conexao = new ConexaoBD();
-        
+                   
         Connection conn = conexao.criarConexao();
         
         Statement stm = conn.createStatement();
         
         stm.executeUpdate(sql);
         
-        conexao.fecharConexao();
         
         JOptionPane.showMessageDialog(null, "Usuario cadastrado com sucesso.");
         
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Não foi possivel salvar o usuario");
+        }finally{
+            conexao.fecharConexao();
         }
         
     }
@@ -147,24 +146,28 @@ public class Usuario {
     
     public void editarUsuario(Usuario u){
 
-        String sql = "UPDATE usuarios SET nome_completo='"+nomeCompleto+"', nome_usuario='"+nomeUsuario+"', senha='"+senha+"', email='" + email+ "', telefone='" + telefone +"' WHERE id="+id;
+        String sql = "UPDATE usuarios SET nome_completo=?, email=?, telefone=?, nome_usuario=?, senha=? WHERE id=?";
         
         try{
 
-            ConexaoBD conexao = new ConexaoBD();
-
             Connection conn = conexao.criarConexao();
+            PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
+            
+            stm.setString(1, u.getNomeCompleto());
+            stm.setString(2, u.getEmail());
+            stm.setInt(3, u.getTelefone());
+            stm.setString(4, u.getNomeUsuario());
+            stm.setString(5, u.getSenha());
+            stm.setInt(6, u.getId());
+            
+            stm.executeUpdate();
 
-            Statement stm = conn.createStatement();
-
-            stm.executeUpdate(sql);
-
-            conexao.fecharConexao();
-
-            JOptionPane.showMessageDialog(null, "Usuário editado com sucesso.");
+            JOptionPane.showMessageDialog(null, "Usuário atualizado com sucesso.");
 
         }catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Não foi possivel editar o usuário.");
+        } finally{
+            conexao.fecharConexao();
         }
    
     }
@@ -192,4 +195,5 @@ public class Usuario {
     
     }
 }
+
 
