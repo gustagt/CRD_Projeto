@@ -379,7 +379,7 @@ public class FormGerenciarUsuario extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"O campo nome está vazio");
         }else if(usuario.getEmail().length()==0){
             JOptionPane.showMessageDialog(null,"O campo email está vazio");
-        }else if(usuario.getSenha().length()<=7){
+        }else if(usuario.getSenha().length()<=3){
             JOptionPane.showMessageDialog(null,"O campo senha está preenchido errado");
         }else if(usuario.getNomeUsuario().length()==0){
             JOptionPane.showMessageDialog(null,"O campo nome de usuario está vazio");

@@ -19,7 +19,7 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
     /**
      * Creates new form formsAbrirProjeto
      */
-    FormProjetoAberto enviaTexto;
+
     
     Projeto projForm;
     Projeto proj = new Projeto();
@@ -251,16 +251,14 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
         
         if (tbProj.getSelectedRow() != -1){
 
+            proj.setId((int)tbProj.getValueAt(tbProj.getSelectedRow(), 0));
             proj.setNomeProj(txfNomeProj.getText());
             proj.setDescricaoProj(txaDescricaoProj.getText());
             proj.setUsuarioProprietario(nomeUsuario);
 
             
             proj.editarProj(proj);
-            
-            txfNomeProj.setText("");
-            txaDescricaoProj.setText("");
-
+           
         }
 
             
@@ -306,18 +304,21 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
     }//GEN-LAST:event_btAtualizarProjetoActionPerformed
 
     private void btAbrirProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbrirProjetoActionPerformed
-                
-        if(enviaTexto ==null)            {
-            enviaTexto = new FormProjetoAberto();
-            enviaTexto.setVisible(true);   
-            enviaTexto.recebendoTexto(txfNomeProj.getText());
-            enviaTexto.recebendoTexto(txaDescricaoProj.getText());
-        }else{
-            enviaTexto.setVisible(true);
-            enviaTexto.setState(FormProjetoAberto.NORMAL);
-            enviaTexto.recebendoTexto(txfNomeProj.getText());
-            enviaTexto.recebendoTexto(txaDescricaoProj.getText());
+            FormProjetoAberto telaAberta = new FormProjetoAberto();       
+             if (tbProj.getSelectedRow() != -1){
+
+                    
+            telaAberta.dadosProj.setId((int)tbProj.getValueAt(tbProj.getSelectedRow(), 0));
+
+            telaAberta.setVisible(true);
+            this.setVisible(false);
+        } else{
+            JOptionPane.showMessageDialog(null, "Selecione uma linha.");
         }
+        
+        
+               
+        
     }//GEN-LAST:event_btAbrirProjetoActionPerformed
 
     private void tbProjMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProjMouseClicked
@@ -356,11 +357,8 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
 
     private void menuGerenciarUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuGerenciarUsuariosMouseClicked
         FormGerenciarUsuario formGerenciarUsuario = new FormGerenciarUsuario();
-        if(nomeUsuario == "admin"){
-            formGerenciarUsuario.setVisible(true); 
-        } else{
-            JOptionPane.showMessageDialog(null, "Área Exclusiva");
-        }
+
+        formGerenciarUsuario.setVisible(true); 
     }//GEN-LAST:event_menuGerenciarUsuariosMouseClicked
 
     /**
