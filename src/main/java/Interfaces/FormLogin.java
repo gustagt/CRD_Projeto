@@ -126,7 +126,7 @@ public class FormLogin extends javax.swing.JFrame {
             usuario.setNomeUsuario(txfNomeUsuario.getText());
             usuario.setSenha(txfSenha.getText());
 
-            String sql ="select * from usuarios "+
+            String sql ="select id from usuarios "+
                         "where nome_usuario= '" + usuario.getNomeUsuario() +"' and senha='"+usuario.getSenha()+"'";
 
             PreparedStatement stmt = conn.prepareStatement(sql);
@@ -136,9 +136,10 @@ public class FormLogin extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Bem vindo: " + usuario.getNomeUsuario());
                 
                 FormGerenciarProjeto formGerenciarProjeto = new FormGerenciarProjeto();
+                usuario = usuario.Perfil(usuario.getNomeUsuario(), usuario.getSenha());
                 
-                formGerenciarProjeto.setNomeUsuario(usuario.getNomeUsuario());
-                        
+                formGerenciarProjeto.usuario = usuario;
+                
                 formGerenciarProjeto.setVisible(true);
                 setVisible(false);
             } else{

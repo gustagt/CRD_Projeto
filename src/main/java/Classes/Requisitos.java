@@ -5,9 +5,13 @@ import Classes.ConexaoBD;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Date;
+import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.xml.crypto.Data;
 
 /**
  *
@@ -16,13 +20,13 @@ import javax.swing.JOptionPane;
 public class Requisitos {
 
     private int id;
-    private int idProjeto;
+    private int id_projeto;
     private String nome;
     private String modulo;
     private String funcionalidades;
-    private Date dataCriacao;
+    private String dataCriacao;
     private String autor;
-    private Date dataAlteracao;
+    private String dataAlteracao;
     private String autorAlteracao;
     private int versao;
     private int prioridade;
@@ -65,11 +69,11 @@ public class Requisitos {
         this.funcionalidades = funcionalidades;
     }
 
-    public Date getDataCriacao() {
+    public String getDataCriacao() {
         return dataCriacao;
     }
 
-    public void setDataCriacao(Date dataCriacao) {
+    public void setDataCriacao(String dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
 
@@ -81,11 +85,11 @@ public class Requisitos {
         this.autor = autor;
     }
 
-    public Date getDataAlteracao() {
+    public String getDataAlteracao() {
         return dataAlteracao;
     }
 
-    public void setDataAlteracao(Date dataAlteracao) {
+    public void setDataAlteracao(String dataAlteracao) {
         this.dataAlteracao = dataAlteracao;
     }
 
@@ -153,16 +157,50 @@ public class Requisitos {
         this.descricao = descricao;
     }
     
-    public void inserirRequisitos() {
-        String sql = "insert into requisitos (id_requisito, nome_requisito, modulo, funcionalidades, data_criacao, data_alteracao, autor, autor_alteracao, versao, prioridade, complexidade, esforco_horas, estado, fase, descricao) values (default, '"+nome+"', '"+modulo+"', '"+funcionalidades+"', '"+dataCriacao+"', '"+dataAlteracao+"', '"+autor+"',, '"+autorAlteracao+"', '"+versao+"', '"+prioridade+"', '"+esforcoHoras+"', '"+estado+"', '"+fase+"', '"+descricao+"');";
-        
+    public int getId_projeto() {
+        return id_projeto;
+    }
+
+    public void setId_projeto(int id_Projeto) {
+        this.id_projeto = id_Projeto;
+    }
+
+    public int getEsforcoHoras() {
+        return esforcoHoras;
+    }
+
+    public void setEsforcoHoras(int esforcoHoras) {
+        this.esforcoHoras = esforcoHoras;
+    }
+    
+    public void inserirRequisitos(Requisitos r) {
+        String sql = ("INSERT INTO requisitos ( id_requisito, nome, modulo, funcionalidades, dataCriacao, autor, versao, prioridade, complexidade, eforcoHoras, estado, fase, descricao, id_projeto) "
+                +"VALUES (default,?,?,?,?,?,?,?,?,?,?,?,?,?)");
         try{    
             
         ConexaoBD conexao = new ConexaoBD();
         
         Connection conn = conexao.criarConexao();
         
-        Statement stm = conn.createStatement();
+        PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
+            
+            
+            stm.setString(1, r.getNome());
+            stm.setString(2, r.getModulo());
+            stm.setString(3, r.getFuncionalidades());
+            stm.setString(4,  r.getDataCriacao());
+            stm.setString(5, r.getAutor());
+            stm.setInt(6, r.getVersao());
+            stm.setInt(7, r.getPrioridade());
+            stm.setInt(8, r.getComplexidade());
+            stm.setInt(9, r.getEforcoHoras());
+            stm.setString(10, r.getEstado());
+            stm.setString(11, r.getFase());
+            stm.setString(12, r.getDescricao());
+            stm.setInt(13, r.getId_projeto());
+
+            
+        
         
         stm.executeUpdate(sql);
         
@@ -171,13 +209,13 @@ public class Requisitos {
         JOptionPane.showMessageDialog(null, "Requisito criado com sucesso.");
         
         }catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "NÃ£o foi possivel criar o requisito.");
+            JOptionPane.showMessageDialog(null, "Não foi possivel criar o requisito.");
         }
         
     }
     
-    public void editarRequiso(Requisitos r) {
-        String sql = "UPDATE requisitos SET  nome=?, modulo=?, funcionalidades=?, dataAlteracao="+dataAlteracao+", autorAlteracao=?, versao=?, prioridade=?, complexidade=?, eforcoHoras=?, estado=?, fase=?, descricao=? WHERE id_requisito=?";
+    public void editarRequisito(Requisitos r) {
+        String sql = "UPDATE requisitos SET  nome=?, modulo=?, funcionalidades=?, dataAlteracao=?, autorAlteracao=?, versao=?, prioridade=?, complexidade=?, eforcoHoras=?, estado=?, fase=?, descricao=? WHERE id_requisito=?";
         ConexaoBD conexao = new ConexaoBD();
         try{
             
@@ -189,18 +227,17 @@ public class Requisitos {
             stm.setString(1, r.getNome());
             stm.setString(2, r.getModulo());
             stm.setString(3, r.getFuncionalidades());
-            stm.setString(4, r.getAutorAlteracao());
-            stm.setInt(5, r.getVersao());
-            stm.setInt(6, r.getPrioridade());
-            stm.setInt(7, r.getComplexidade());
-            stm.setInt(8, r.getEforcoHoras());
-            stm.setString(9, r.getEstado());
-            stm.setString(10, r.getFase());
-            stm.setString(11, r.getDescricao());
-            stm.setInt(12, r.getId());
-            
-            
-            
+            stm.setString(4,  r.getDataAlteracao());
+            stm.setString(5, r.getAutorAlteracao());
+            stm.setInt(6, r.getVersao());
+            stm.setInt(7, r.getPrioridade());
+            stm.setInt(8, r.getComplexidade());
+            stm.setInt(9, r.getEforcoHoras());
+            stm.setString(10, r.getEstado());
+            stm.setString(11, r.getFase());
+            stm.setString(12, r.getDescricao());
+            stm.setInt(13, r.getId());
+
             stm.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Requisito atualizado com sucesso.");
@@ -213,22 +250,6 @@ public class Requisitos {
 
       }
 
-    public int getIdProjeto() {
-        return idProjeto;
-    }
-
-    public void setIdProjeto(int idProjeto) {
-        this.idProjeto = idProjeto;
-    }
-
-    public int getEsforcoHoras() {
-        return esforcoHoras;
-    }
-
-    public void setEsforcoHoras(int esforcoHoras) {
-        this.esforcoHoras = esforcoHoras;
-    }
-    
     public void excluirRequisito(int idTroca) {
          
         String sql = "delete from requisitos where id_requisito="+idTroca;
@@ -252,5 +273,73 @@ public class Requisitos {
         }
         
       }
+    
+    public Vector recuperarListaRequisitos(int idProj){
+
+        Vector listaReq = new Vector<>();
+
+        String sql ="Select * from requisitos where id_projeto="+idProj+";";
+
+        try{
+
+            ConexaoBD conexao = new ConexaoBD();
+            Connection con = conexao.criarConexao();
+
+            Statement stmt = con.createStatement();
+
+            ResultSet rs= stmt.executeQuery(sql);
+
+            while(rs.next()){
+                
+                int idResult = rs.getInt("id_requisito");
+                String nomeRequisitoResult = rs.getString("nome");
+                String moduloResult = rs.getString("modulo");
+                String funcionalidadesResult = rs.getString("funcionalidades");
+                Date dataCriacaoResult = rs.getDate("dataCriacao");
+                String autorResult = rs.getString("autor");
+                Date dataAlteracaoResult = rs.getDate("dataAlteracao");
+                String autorAlteracaoResult = rs.getString("autorAlteracao");
+                int versaoResult = rs.getInt("versao");
+                int prioridadeResult = rs.getInt("prioridade");
+                int complexidadeResult = rs.getInt("complexidade");
+                int eforcoHorasResult = rs.getInt("eforcoHoras");
+                String estadoResult = rs.getString("estado");
+                String faseResult = rs.getString("fase");
+                String descricaoResult = rs.getString("descricao");
+                int id_projetoResult = rs.getInt("id_projeto");
+                
+                Vector temp = new Vector();
+
+                temp.add(idResult);
+                temp.add(nomeRequisitoResult);
+                temp.add(moduloResult);
+                temp.add(funcionalidadesResult);
+                temp.add(dataCriacaoResult);
+                temp.add(autorResult);
+                temp.add(dataAlteracaoResult);
+                temp.add(autorAlteracaoResult);
+                temp.add(versaoResult);
+                temp.add(prioridadeResult);
+                temp.add(complexidadeResult);
+                temp.add(eforcoHorasResult);
+                temp.add(estadoResult);
+                temp.add(faseResult);
+                temp.add(descricaoResult);
+                temp.add(id_projetoResult);
+                
+
+                listaReq.addElement(temp);
+
+            }
+
+
+            conexao.fecharConexao();
+            return listaReq;
+
+        }catch (SQLException e){
+            return null;
+        } 
+        
+    }
     
 }

@@ -21,6 +21,15 @@ public class Projeto {
     private String nomeProj;
     private String descricaoProj;
     private String usuarioProprietario;
+    private int idUsuario;
+       
+    public int getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
 
     ConexaoBD conexao = new ConexaoBD();
     
@@ -57,7 +66,7 @@ public class Projeto {
     }
     
      public void inserirProj(Projeto p) {
-        String sql = ("INSERT INTO projetos (id_projeto, nome_projeto, descricao, usuario_proprietario) values (default, ?,?,?)");
+        String sql = ("INSERT INTO projetos (id_projeto, nome_projeto, descricao, nome_usuario, id_usuario) values (default, ?,?,?,?)");
                                                                                               
         try{
 
@@ -67,6 +76,7 @@ public class Projeto {
             stm.setString(1, p.getNomeProj());
             stm.setString(2, p.getDescricaoProj());
             stm.setString(3, p.getUsuarioProprietario());
+            stm.setInt(4, p.getIdUsuario());
 
             
             stm.executeUpdate();
@@ -102,7 +112,7 @@ public class Projeto {
                 int idResult = rs.getInt("id_projeto");
                 String nomeProjetoResult = rs.getString("nome_projeto");
                 String descricaoResult = rs.getString("descricao");
-                String usuario_proprietarioResult = rs.getString("usuario_proprietario");
+                String usuario_proprietarioResult = rs.getString("nome_usuario");
                 
                 Vector temp = new Vector();
 

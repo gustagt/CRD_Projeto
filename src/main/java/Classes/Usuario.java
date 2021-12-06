@@ -143,6 +143,40 @@ public class Usuario {
       
     }
 
+    public Usuario Perfil(String Nome, String Senha){
+        
+        String sql ="select * from usuarios "+
+                        "where nome_usuario= '" + Nome +"' and senha='"+Senha+"'";
+                        
+        try{              
+            Usuario usuario = new Usuario();
+            
+            Connection con = conexao.criarConexao();        
+            
+            Statement stmt = con.createStatement();
+            
+            ResultSet rs= stmt.executeQuery(sql);
+            
+            while(rs.next()){
+                
+                
+                usuario.setId(rs.getInt("id"));
+                usuario.setNomeCompleto(rs.getString("nome_completo"));
+                usuario.setEmail(rs.getString("email"));
+                usuario.setTelefone(rs.getInt("telefone"));     
+                usuario.setSenha(Senha);
+                usuario.setNomeUsuario(Nome);
+            }
+        
+            
+            conexao.fecharConexao();
+            return usuario;
+            
+        }catch (SQLException e){
+            return null;
+        } 
+        
+    }
     
     public void editarUsuario(Usuario u){
 

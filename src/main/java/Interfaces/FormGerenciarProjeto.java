@@ -21,18 +21,10 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
      */
 
     
-    Projeto projForm;
+    Projeto projForm ;
     Projeto proj = new Projeto();
+    Usuario usuario = new Usuario();
     
-    private String nomeUsuario;
-
-    public String getNomeUsuario() {
-        return nomeUsuario;
-    }
-
-    public void setNomeUsuario(String nomeUsuario) {
-        this.nomeUsuario = nomeUsuario;
-    }
     
     public FormGerenciarProjeto() {
         initComponents();
@@ -254,11 +246,13 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
             proj.setId((int)tbProj.getValueAt(tbProj.getSelectedRow(), 0));
             proj.setNomeProj(txfNomeProj.getText());
             proj.setDescricaoProj(txaDescricaoProj.getText());
-            proj.setUsuarioProprietario(nomeUsuario);
+            proj.setUsuarioProprietario(usuario.getNomeUsuario());
 
             
             proj.editarProj(proj);
            
+        }else{
+            JOptionPane.showMessageDialog(null, "Selecione uma linha para editar.");
         }
 
             
@@ -280,7 +274,7 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
 
 
         } else{
-            JOptionPane.showMessageDialog(null, "Selecione uma linha para excluir");
+            JOptionPane.showMessageDialog(null, "Selecione uma linha para excluir.");
         }
        
     }//GEN-LAST:event_btExcluirProjetoActionPerformed
@@ -304,13 +298,16 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
     }//GEN-LAST:event_btAtualizarProjetoActionPerformed
 
     private void btAbrirProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbrirProjetoActionPerformed
-            FormProjetoAberto telaAberta = new FormProjetoAberto();       
-             if (tbProj.getSelectedRow() != -1){
+            FormProjetoAberto telaAberta = new FormProjetoAberto();    
+            if (tbProj.getSelectedRow() != -1){
 
-                    
-            telaAberta.dadosProj.setId((int)tbProj.getValueAt(tbProj.getSelectedRow(), 0));
-
-            telaAberta.setVisible(true);
+            
+            proj.setNomeProj(tbProj.getValueAt(tbProj.getSelectedRow(), 0).toString());
+            
+            telaAberta.projeto.setId((int)tbProj.getValueAt(tbProj.getSelectedRow(), 0));
+            telaAberta.usuario = usuario;
+            
+            telaAberta.setVisible(true); 
             this.setVisible(false);
         } else{
             JOptionPane.showMessageDialog(null, "Selecione uma linha.");
@@ -335,7 +332,8 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
         
         proj.setNomeProj(txfNomeProj.getText());
         proj.setDescricaoProj(txaDescricaoProj.getText());
-        proj.setUsuarioProprietario(nomeUsuario);
+        proj.setUsuarioProprietario(usuario.getNomeUsuario());
+        proj.setIdUsuario(usuario.getId());
 
         if (proj.getNomeProj().length() == 0) {
             JOptionPane.showMessageDialog(null, "O campo nome está vazio");
@@ -357,7 +355,7 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
 
     private void menuGerenciarUsuariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuGerenciarUsuariosMouseClicked
         FormGerenciarUsuario formGerenciarUsuario = new FormGerenciarUsuario();
-
+        
         formGerenciarUsuario.setVisible(true); 
     }//GEN-LAST:event_menuGerenciarUsuariosMouseClicked
 
