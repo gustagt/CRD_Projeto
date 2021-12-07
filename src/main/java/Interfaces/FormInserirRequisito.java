@@ -7,12 +7,8 @@ package Interfaces;
 import Classes.Projeto;
 import Classes.Requisitos;
 import Classes.Usuario;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -218,9 +214,7 @@ public class FormInserirRequisito extends javax.swing.JFrame {
                                         .addGap(18, 18, 18)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(cbFase, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(txfEsforcoEmHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(18, 18, 18)))))
+                                            .addComponent(txfEsforcoEmHoras, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                 .addGap(0, 0, Short.MAX_VALUE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btVoltar, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -272,7 +266,7 @@ public class FormInserirRequisito extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbDescricao, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btSalvar)
                     .addComponent(btVoltar))
                 .addGap(35, 35, 35))
@@ -318,6 +312,7 @@ public class FormInserirRequisito extends javax.swing.JFrame {
         requisito.setFase((String)cbFase.getSelectedItem());
         requisito.setDescricao(txaDescricao.getText());
         requisito.setId_projeto(proj.getId());
+       
         
         if(requisito.getNome().length()==0){
             JOptionPane.showMessageDialog(null,"O campo nome está vazio");
@@ -335,6 +330,7 @@ public class FormInserirRequisito extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null,"O campo descrição está vazio");
         }else {
             requisito.inserirRequisitos(requisito);
+            this.setVisible(false);
         }
     }//GEN-LAST:event_btSalvarActionPerformed
 

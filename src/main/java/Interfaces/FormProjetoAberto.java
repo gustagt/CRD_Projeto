@@ -26,7 +26,7 @@ public class FormProjetoAberto extends javax.swing.JFrame {
     public FormProjetoAberto() {
         initComponents();
     
-      
+        
         formReq = new Requisitos();
         Vector listaReq = formReq.recuperarListaRequisitos(projeto.getId());
 
@@ -47,7 +47,7 @@ public class FormProjetoAberto extends javax.swing.JFrame {
         colunas.add("estado");
         colunas.add("fase");
         colunas.add("descricao");
-        colunas.add("id_projeto");
+        colunas.add("nome_projeto");
       
         DefaultTableModel dataModel = new DefaultTableModel();
 

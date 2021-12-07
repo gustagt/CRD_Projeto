@@ -1,8 +1,5 @@
 package Classes;
 
-import Classes.ConexaoBD;
-
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,7 +8,7 @@ import java.sql.Statement;
 import java.util.Date;
 import java.util.Vector;
 import javax.swing.JOptionPane;
-import javax.xml.crypto.Data;
+
 
 /**
  *
@@ -20,7 +17,7 @@ import javax.xml.crypto.Data;
 public class Requisitos {
 
     private int id;
-    private int id_projeto;
+    private int idProjeto;
     private String nome;
     private String modulo;
     private String funcionalidades;
@@ -125,14 +122,6 @@ public class Requisitos {
         this.complexidade = complexidade;
     }
 
-    public int getEforcoHoras() {
-        return esforcoHoras;
-    }
-
-    public void setEforcoHoras(int eforcoHoras) {
-        this.esforcoHoras = eforcoHoras;
-    }
-
     public String getEstado() {
         return estado;
     }
@@ -158,11 +147,11 @@ public class Requisitos {
     }
     
     public int getId_projeto() {
-        return id_projeto;
+        return idProjeto;
     }
 
     public void setId_projeto(int id_Projeto) {
-        this.id_projeto = id_Projeto;
+        this.idProjeto = id_Projeto;
     }
 
     public int getEsforcoHoras() {
@@ -174,34 +163,18 @@ public class Requisitos {
     }
     
     public void inserirRequisitos(Requisitos r) {
-        String sql = ("INSERT INTO requisitos ( id_requisito, nome, modulo, funcionalidades, dataCriacao, autor, versao, prioridade, complexidade, eforcoHoras, estado, fase, descricao, id_projeto) "
-                +"VALUES (default,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+        
+        
+        String sql = "INSERT INTO requisitos ( id_requisito, nome, modulo, funcionalidades, dataCriacao, autor, versao, prioridade, complexidade, eforcoHoras, estado, fase, descricao, id_projeto) "
+                +"VALUES (default,'"+nome+"','"+modulo+"','"+funcionalidades+"','"+dataCriacao+"','"+autor+"',"+versao+","+prioridade+","+complexidade+","+esforcoHoras+",'"+estado+"','"+fase+"','"+descricao+"',"+idProjeto+")";
         try{    
             
         ConexaoBD conexao = new ConexaoBD();
         
         Connection conn = conexao.criarConexao();
         
-        PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
-            
-            
-            stm.setString(1, r.getNome());
-            stm.setString(2, r.getModulo());
-            stm.setString(3, r.getFuncionalidades());
-            stm.setString(4,  r.getDataCriacao());
-            stm.setString(5, r.getAutor());
-            stm.setInt(6, r.getVersao());
-            stm.setInt(7, r.getPrioridade());
-            stm.setInt(8, r.getComplexidade());
-            stm.setInt(9, r.getEforcoHoras());
-            stm.setString(10, r.getEstado());
-            stm.setString(11, r.getFase());
-            stm.setString(12, r.getDescricao());
-            stm.setInt(13, r.getId_projeto());
-
-            
-        
-        
+        Statement stm = conn.createStatement();
+ 
         stm.executeUpdate(sql);
         
         conexao.fecharConexao();
@@ -232,7 +205,7 @@ public class Requisitos {
             stm.setInt(6, r.getVersao());
             stm.setInt(7, r.getPrioridade());
             stm.setInt(8, r.getComplexidade());
-            stm.setInt(9, r.getEforcoHoras());
+            stm.setInt(9, r.getEsforcoHoras());
             stm.setString(10, r.getEstado());
             stm.setString(11, r.getFase());
             stm.setString(12, r.getDescricao());
@@ -278,7 +251,10 @@ public class Requisitos {
 
         Vector listaReq = new Vector<>();
 
-        String sql ="Select * from requisitos where id_projeto="+idProj+";";
+        String sql ="select requisitos.*, projetos.nome_projeto\n" +
+                    "from requisitos join  projetos\n" +
+                    "on requisitos.id_projeto = projetos.id_projeto\n" +
+                    "where requisitos.id_projeto = "+idProj+";";
 
         try{
 
@@ -306,7 +282,7 @@ public class Requisitos {
                 String estadoResult = rs.getString("estado");
                 String faseResult = rs.getString("fase");
                 String descricaoResult = rs.getString("descricao");
-                int id_projetoResult = rs.getInt("id_projeto");
+                String id_projetoResult = rs.getString("nome_projeto");
                 
                 Vector temp = new Vector();
 

@@ -239,17 +239,17 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btEditarProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEditarProjetoActionPerformed
-        Projeto proj = new Projeto();
+        Projeto proje = new Projeto();
         
         if (tbProj.getSelectedRow() != -1){
 
-            proj.setId((int)tbProj.getValueAt(tbProj.getSelectedRow(), 0));
-            proj.setNomeProj(txfNomeProj.getText());
-            proj.setDescricaoProj(txaDescricaoProj.getText());
-            proj.setUsuarioProprietario(usuario.getNomeUsuario());
+            proje.setId((int)tbProj.getValueAt(tbProj.getSelectedRow(), 0));
+            proje.setNomeProj(txfNomeProj.getText());
+            proje.setDescricaoProj(txaDescricaoProj.getText());
+            
 
             
-            proj.editarProj(proj);
+            proje.editarProj(proje);
            
         }else{
             JOptionPane.showMessageDialog(null, "Selecione uma linha para editar.");
@@ -332,7 +332,6 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
         
         proj.setNomeProj(txfNomeProj.getText());
         proj.setDescricaoProj(txaDescricaoProj.getText());
-        proj.setUsuarioProprietario(usuario.getNomeUsuario());
         proj.setIdUsuario(usuario.getId());
 
         if (proj.getNomeProj().length() == 0) {

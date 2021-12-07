@@ -66,7 +66,7 @@ public class Projeto {
     }
     
      public void inserirProj(Projeto p) {
-        String sql = ("INSERT INTO projetos (id_projeto, nome_projeto, descricao, nome_usuario, id_usuario) values (default, ?,?,?,?)");
+        String sql = ("INSERT INTO projetos (id_projeto, nome_projeto, descricao, id_usuario) values (default, ?,?,?,?)");
                                                                                               
         try{
 
@@ -74,9 +74,8 @@ public class Projeto {
             PreparedStatement stm = (PreparedStatement) conn.prepareStatement(sql);
             
             stm.setString(1, p.getNomeProj());
-            stm.setString(2, p.getDescricaoProj());
-            stm.setString(3, p.getUsuarioProprietario());
-            stm.setInt(4, p.getIdUsuario());
+            stm.setString(2, p.getDescricaoProj());            
+            stm.setInt(3, p.getIdUsuario());
 
             
             stm.executeUpdate();
@@ -96,7 +95,7 @@ public class Projeto {
 
         Vector listaProj = new Vector<>();
 
-        String sql ="Select * from projetos";
+        String sql ="Select * from projetos join usuarios on projetos.id_usuario = usuarios.id";
 
         try{
 
@@ -137,7 +136,7 @@ public class Projeto {
     }
     
     public void editarProj(Projeto p) {
-        String sql = "UPDATE projetos SET nome_projeto=?, descricao=?, usuario_proprietario=? WHERE id_projeto=?";
+        String sql = "UPDATE projetos SET nome_projeto=?, descricao=? WHERE id_projeto=?";
         
         try{
 
@@ -146,8 +145,8 @@ public class Projeto {
             
             stm.setString(1, p.getNomeProj());
             stm.setString(2, p.getDescricaoProj());
-            stm.setString(3, p.getUsuarioProprietario());
-            stm.setInt(4, p.getId());
+           
+            stm.setInt(3, p.getId());
 
             
             stm.executeUpdate();
