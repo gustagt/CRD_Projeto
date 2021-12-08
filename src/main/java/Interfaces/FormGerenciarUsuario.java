@@ -85,6 +85,7 @@ public class FormGerenciarUsuario extends javax.swing.JFrame {
         lbSenha1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("CDR - Requisitos");
 
         tblUsuarios.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -291,13 +292,27 @@ public class FormGerenciarUsuario extends javax.swing.JFrame {
             usuario.setId((int)tblUsuarios.getValueAt(tblUsuarios.getSelectedRow(),0));
             
             
+        if(usuario.getNomeCompleto().length()==0){
+            JOptionPane.showMessageDialog(null,"O campo nome está vazio");
+        }else if(usuario.getEmail().length()==0){
+            JOptionPane.showMessageDialog(null,"O campo email está vazio");
+        }else if(usuario.getSenha().length()<=3){
+            JOptionPane.showMessageDialog(null,"O campo senha está preenchido errado");
+        }else if(usuario.getNomeUsuario().length()==0){
+            JOptionPane.showMessageDialog(null,"O campo nome de usuario está vazio");
+        }else if(usuario.getTelefone()<=0){
+            JOptionPane.showMessageDialog(null,"O campo telefone está vazio");
+        }else {
             usuario.editarUsuario(usuario);
-            
+        }
+         
             txfNomeCompleto.setText("");
             txfNomeUsuario.setText("");
             passSenha.setText("");
             txfTelefone.setText("");
             txfEmailUsuario.setText("");
+            
+        
 
             
         }    

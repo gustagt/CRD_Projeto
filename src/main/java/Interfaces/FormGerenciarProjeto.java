@@ -3,7 +3,11 @@ package Interfaces;
 import Classes.*;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -24,30 +28,19 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
     Projeto projForm ;
     Projeto proj = new Projeto();
     Usuario usuario = new Usuario();
-    
+    TableRowSorter trs;
     
     public FormGerenciarProjeto() {
         initComponents();
-        
-        projForm = new Projeto();
-        Vector listaProj = projForm.recuperarListaProjetos();
 
-        Vector colunas = new Vector<>();
-
-        colunas.add("id_projeto");
-        colunas.add("nome_projeto");
-        colunas.add("descricao");
-        colunas.add("usuario_proprietario");
-      
-        DefaultTableModel dataModel = new DefaultTableModel();
-
-        dataModel.setDataVector(listaProj, colunas);
-
-        tbProj.setModel(dataModel);
-  
     }
     
-   
+    
+    public void Filtro(){
+        int ColumnTable = 1; //Coluna Nome do Projeto
+        trs.setRowFilter(RowFilter.regexFilter(jtxtFiltro.getText(),ColumnTable));
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -74,13 +67,17 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
         btAbrirProjeto = new javax.swing.JButton();
         btCadastrarProjeto = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        jtxtFiltro = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuGerenciarUsuarios = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
         MenuSair = new javax.swing.JMenu();
 
         jMenu1.setText("jMenu1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("CDR - Requisitos");
 
         btEditarProjeto.setText("Editar");
         btEditarProjeto.addActionListener(new java.awt.event.ActionListener() {
@@ -96,7 +93,7 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
             }
         });
 
-        btAtualizarProjeto.setText("Atualizar");
+        btAtualizarProjeto.setText("Gerar Relatório");
         btAtualizarProjeto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btAtualizarProjetoActionPerformed(evt);
@@ -154,6 +151,19 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
             }
         });
 
+        jtxtFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtFiltroActionPerformed(evt);
+            }
+        });
+        jtxtFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtFiltroKeyTyped(evt);
+            }
+        });
+
+        jLabel2.setText("Filtrar:");
+
         menuGerenciarUsuarios.setText("Gerenciar Usuários");
         menuGerenciarUsuarios.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -161,8 +171,14 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(menuGerenciarUsuarios);
+        jMenuBar1.add(jMenu2);
 
         MenuSair.setText("Sair");
+        MenuSair.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MenuSairMouseClicked(evt);
+            }
+        });
         MenuSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MenuSairActionPerformed(evt);
@@ -178,34 +194,37 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(152, 152, 152)
-                        .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btAbrirProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lbDescricaoProj, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(321, 321, 321))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(btEditarProjeto)
-                                    .addGap(48, 48, 48)
-                                    .addComponent(btExcluirProjeto)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btCadastrarProjeto, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGap(41, 41, 41)
-                                    .addComponent(btAtualizarProjeto))
-                                .addComponent(scrolPainel, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                    .addComponent(lbNomeProj, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txfNomeProj, javax.swing.GroupLayout.PREFERRED_SIZE, 392, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(28, Short.MAX_VALUE))
+                    .addComponent(lbDescricaoProj, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jtxtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btAtualizarProjeto)
+                            .addGap(18, 18, 18)
+                            .addComponent(btAbrirProjeto))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(btEditarProjeto)
+                            .addGap(43, 43, 43)
+                            .addComponent(btExcluirProjeto)
+                            .addGap(35, 35, 35)
+                            .addComponent(btCadastrarProjeto)
+                            .addGap(98, 98, 98))
+                        .addComponent(scrolPainel, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addComponent(lbNomeProj)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txfNomeProj, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(20, Short.MAX_VALUE))
             .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lbTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(160, 160, 160))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -215,7 +234,13 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
                 .addGap(27, 27, 27)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(btAbrirProjeto)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jtxtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btAbrirProjeto)
+                        .addComponent(btAtualizarProjeto)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 11, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -228,7 +253,6 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
                 .addComponent(scrolPainel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btAtualizarProjeto)
                     .addComponent(btEditarProjeto)
                     .addComponent(btExcluirProjeto)
                     .addComponent(btCadastrarProjeto))
@@ -280,6 +304,7 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
     }//GEN-LAST:event_btExcluirProjetoActionPerformed
 
     private void btAtualizarProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAtualizarProjetoActionPerformed
+        projForm = new Projeto();
         Vector listaProj = projForm.recuperarListaProjetos();
 
         Vector colunas = new Vector<>();
@@ -295,10 +320,13 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
         dataModel.setDataVector(listaProj, colunas);
 
         tbProj.setModel(dataModel);
+
+      
     }//GEN-LAST:event_btAtualizarProjetoActionPerformed
 
     private void btAbrirProjetoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btAbrirProjetoActionPerformed
             FormProjetoAberto telaAberta = new FormProjetoAberto();    
+            
             if (tbProj.getSelectedRow() != -1){
 
             
@@ -307,14 +335,15 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
             telaAberta.projeto.setId((int)tbProj.getValueAt(tbProj.getSelectedRow(), 0));
             telaAberta.usuario = usuario;
             
+            telaAberta.recebeTexto(txfNomeProj.getText());
+            
             telaAberta.setVisible(true); 
             this.setVisible(false);
-        } else{
-            JOptionPane.showMessageDialog(null, "Selecione uma linha.");
-        }
+            } else{
+                JOptionPane.showMessageDialog(null, "Selecione uma linha.");
+            }
         
-        
-               
+            
         
     }//GEN-LAST:event_btAbrirProjetoActionPerformed
 
@@ -357,6 +386,29 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
         
         formGerenciarUsuario.setVisible(true); 
     }//GEN-LAST:event_menuGerenciarUsuariosMouseClicked
+
+    private void jtxtFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtFiltroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtFiltroActionPerformed
+
+    private void jtxtFiltroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtFiltroKeyTyped
+
+        jtxtFiltro.addKeyListener(new KeyAdapter(){
+
+            public void keyReleased(final KeyEvent e){
+                String texto = (jtxtFiltro.getText());
+                jtxtFiltro.setText(texto);
+                Filtro();
+            }
+        });
+
+        trs = new TableRowSorter(tbProj.getModel());
+        tbProj.setRowSorter(trs);
+    }//GEN-LAST:event_jtxtFiltroKeyTyped
+
+    private void MenuSairMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MenuSairMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_MenuSairMouseClicked
 
     /**
      * @param args the command line arguments
@@ -401,12 +453,15 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
     private javax.swing.JButton btCadastrarProjeto;
     private javax.swing.JButton btEditarProjeto;
     private javax.swing.JButton btExcluirProjeto;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
+    private javax.swing.JTextField jtxtFiltro;
     private javax.swing.JLabel lbDescricaoProj;
     private javax.swing.JLabel lbNomeProj;
     private javax.swing.JLabel lbTitulo;

@@ -66,7 +66,7 @@ public class Projeto {
     }
     
      public void inserirProj(Projeto p) {
-        String sql = ("INSERT INTO projetos (id_projeto, nome_projeto, descricao, id_usuario) values (default, ?,?,?,?)");
+        String sql = ("INSERT INTO projetos (id_projeto, nome_projeto, descricao, id_usuario) values (default, ?,?,?)");
                                                                                               
         try{
 

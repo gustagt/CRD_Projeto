@@ -6,10 +6,14 @@ package Interfaces;
 
 import Classes.Requisitos;
 import Classes.*;
+import java.sql.Connection;
 import java.util.Vector;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
-
+import javax.swing.table.TableRowSorter;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 
 /**
@@ -21,12 +25,14 @@ public class FormProjetoAberto extends javax.swing.JFrame {
     Usuario usuario = new Usuario();
     Projeto projeto = new Projeto();
     Requisitos formReq;
+    ConexaoBD conexao = new ConexaoBD();
+    TableRowSorter trs;
     
- 
+    
     public FormProjetoAberto() {
         initComponents();
     
-        
+        /*
         formReq = new Requisitos();
         Vector listaReq = formReq.recuperarListaRequisitos(projeto.getId());
 
@@ -53,12 +59,19 @@ public class FormProjetoAberto extends javax.swing.JFrame {
 
         dataModel.setDataVector(listaReq, colunas);
 
-        tbReq.setModel(dataModel);
+        tbReq.setModel(dataModel);*/
   
+        
     }
 
-   
-
+    public void Filtro(){
+        int ColumnTable = 1; //Coluna Nome do Requistio
+        trs.setRowFilter(RowFilter.regexFilter(jtxtFiltro.getText(),ColumnTable));
+    }
+    
+    public void recebeTexto(String nomeProjeto){
+        txfNomeProjAberto.setText(nomeProjeto);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -69,27 +82,23 @@ public class FormProjetoAberto extends javax.swing.JFrame {
     private void initComponents() {
 
         lbTitulo1 = new javax.swing.JLabel();
-        btGerarRelatorio = new javax.swing.JButton();
         btVoltarTelaInicial = new javax.swing.JButton();
         btInserirRequisito = new javax.swing.JButton();
         btExcluir = new javax.swing.JButton();
+        btEditar = new javax.swing.JButton();
+        btMostrarTb = new javax.swing.JButton();
+        jtxtFiltro = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbReq = new javax.swing.JTable();
-        btEditar = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        btMostrarTb = new javax.swing.JButton();
+        txfNomeProjAberto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("CDR - Requisitos");
 
         lbTitulo1.setFont(new java.awt.Font("Goudy Old Style", 0, 24)); // NOI18N
-        lbTitulo1.setText("Projeto");
-
-        btGerarRelatorio.setText("Gerar Relatório");
-        btGerarRelatorio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btGerarRelatorioActionPerformed(evt);
-            }
-        });
+        lbTitulo1.setText(" Projeto:");
 
         btVoltarTelaInicial.setText("Voltar");
         btVoltarTelaInicial.addActionListener(new java.awt.event.ActionListener() {
@@ -98,7 +107,7 @@ public class FormProjetoAberto extends javax.swing.JFrame {
             }
         });
 
-        btInserirRequisito.setText("Inserir Requisito");
+        btInserirRequisito.setText("Cadastrar");
         btInserirRequisito.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btInserirRequisitoActionPerformed(evt);
@@ -112,6 +121,33 @@ public class FormProjetoAberto extends javax.swing.JFrame {
             }
         });
 
+        btEditar.setText("Editar");
+        btEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btEditarActionPerformed(evt);
+            }
+        });
+
+        btMostrarTb.setText("Gerar Relatorio");
+        btMostrarTb.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btMostrarTbActionPerformed(evt);
+            }
+        });
+
+        jtxtFiltro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtxtFiltroActionPerformed(evt);
+            }
+        });
+        jtxtFiltro.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jtxtFiltroKeyTyped(evt);
+            }
+        });
+
+        jLabel2.setText("Filtrar:");
+
         tbReq.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null},
@@ -120,7 +156,7 @@ public class FormProjetoAberto extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "id_requisito", "nome", "modulo", "funcionalidades", "dataCriacao", "autor", "dataAlteracao", "autorAlteracao", "versao", "prioridade", "complexidade", "eforcoHoras", "estado", "fase", "descricao", "id_projeto"
+                "id_requisito", "nome", "modulo", "funcionalidades", "dataCriacao", "autor", "dataAlteracao", "autorAlteracao", "versao", "prioridade", "complexidade", "eforcoHoras", "estado", "fase", "descricao", "nome projeto"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -138,19 +174,11 @@ public class FormProjetoAberto extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tbReq);
 
-        btEditar.setText("Editar");
-        btEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btEditarActionPerformed(evt);
-            }
-        });
+        jScrollPane3.setViewportView(jScrollPane2);
 
-        jLabel1.setText("id");
-
-        btMostrarTb.setText("Mostrar Tabela");
-        btMostrarTb.addActionListener(new java.awt.event.ActionListener() {
+        txfNomeProjAberto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btMostrarTbActionPerformed(evt);
+                txfNomeProjAbertoActionPerformed(evt);
             }
         });
 
@@ -158,58 +186,60 @@ public class FormProjetoAberto extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(329, 329, 329)
-                .addComponent(lbTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(123, 123, 123))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 27, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btMostrarTb)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 923, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btVoltarTelaInicial)
-                .addGap(26, 26, 26)
-                .addComponent(btEditar)
-                .addGap(34, 34, 34)
-                .addComponent(btExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20)
-                .addComponent(btGerarRelatorio, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btInserirRequisito, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(99, 99, 99)
+                        .addComponent(txfNomeProjAberto, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(137, 137, 137))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btVoltarTelaInicial)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jtxtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btEditar)
+                            .addGap(18, 18, 18)
+                            .addComponent(btExcluir)
+                            .addGap(18, 18, 18)
+                            .addComponent(btInserirRequisito)
+                            .addGap(78, 78, 78)
+                            .addComponent(btMostrarTb))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(25, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(36, 36, 36)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addGap(9, 9, 9)
-                .addComponent(btMostrarTb)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 304, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btVoltarTelaInicial)
-                    .addComponent(btGerarRelatorio)
-                    .addComponent(btExcluir)
-                    .addComponent(btEditar)
-                    .addComponent(btInserirRequisito))
-                .addGap(32, 32, 32))
+                    .addComponent(txfNomeProjAberto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(27, 27, 27)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btEditar)
+                        .addComponent(btExcluir)
+                        .addComponent(btInserirRequisito))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jtxtFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2)
+                        .addComponent(btMostrarTb)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
+                .addComponent(btVoltarTelaInicial)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btGerarRelatorioActionPerformed
-
-    }//GEN-LAST:event_btGerarRelatorioActionPerformed
 
     private void btVoltarTelaInicialActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btVoltarTelaInicialActionPerformed
         FormGerenciarProjeto formGerenciarProjeto = new FormGerenciarProjeto();
@@ -261,6 +291,8 @@ public class FormProjetoAberto extends javax.swing.JFrame {
  
             telaEditar.usuario = usuario;
             telaEditar.proj = projeto;
+            
+            
             telaEditar.setVisible(true);
             
         } else{
@@ -305,6 +337,30 @@ public class FormProjetoAberto extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btMostrarTbActionPerformed
 
+    private void jtxtFiltroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtxtFiltroActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jtxtFiltroActionPerformed
+
+
+    private void jtxtFiltroKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jtxtFiltroKeyTyped
+        
+        jtxtFiltro.addKeyListener(new KeyAdapter(){
+            
+            public void keyReleased(final KeyEvent e){
+                String texto = (jtxtFiltro.getText());
+                jtxtFiltro.setText(texto);
+                Filtro();
+            }
+        });
+
+        trs = new TableRowSorter(tbReq.getModel());
+        tbReq.setRowSorter(trs);
+    }//GEN-LAST:event_jtxtFiltroKeyTyped
+
+    private void txfNomeProjAbertoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfNomeProjAbertoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfNomeProjAbertoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -344,13 +400,15 @@ public class FormProjetoAberto extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btEditar;
     private javax.swing.JButton btExcluir;
-    private javax.swing.JButton btGerarRelatorio;
     private javax.swing.JButton btInserirRequisito;
     private javax.swing.JButton btMostrarTb;
     private javax.swing.JButton btVoltarTelaInicial;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextField jtxtFiltro;
     private javax.swing.JLabel lbTitulo1;
     private javax.swing.JTable tbReq;
+    private javax.swing.JTextField txfNomeProjAberto;
     // End of variables declaration//GEN-END:variables
 }
