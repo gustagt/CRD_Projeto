@@ -12,10 +12,7 @@ import java.sql.Statement;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author GUst
- */
+
 public class Usuario {
     private int id;
     private String nomeCompleto;

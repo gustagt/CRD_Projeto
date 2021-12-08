@@ -6,10 +6,7 @@ package Classes;
 
 import Interfaces.FormLogin;
 
-/**
- *
- * @author GUst
- */
+
 public class Principal {
     
     public static void main(String[] args) {

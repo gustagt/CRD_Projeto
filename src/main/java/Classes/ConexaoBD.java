@@ -7,10 +7,7 @@ package Classes;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-/**
- *
- * @author GUst
- */
+
 public class ConexaoBD {
     
         private String hostname = "remotemysql.com";

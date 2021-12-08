@@ -10,10 +10,7 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 
 
-/**
- *
- * @author frank
- */
+
 public class Requisitos {
 
     private int id;

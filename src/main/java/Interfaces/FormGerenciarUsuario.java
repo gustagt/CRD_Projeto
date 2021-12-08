@@ -9,10 +9,7 @@ import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Angélica
- */
+
 public class FormGerenciarUsuario extends javax.swing.JFrame {
     
     Usuario usuarioForm;

@@ -9,20 +9,8 @@ import javax.swing.table.TableRowSorter;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 
-/**
- *
- * @author GUst
- */
 public class FormGerenciarProjeto extends javax.swing.JFrame {
-
-    /**
-     * Creates new form formsAbrirProjeto
-     */
 
     
     Projeto projForm ;
@@ -102,10 +90,7 @@ public class FormGerenciarProjeto extends javax.swing.JFrame {
 
         tbProj.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "id_projeto", "nome_projeto", "descricao", "usuario_proprietario"

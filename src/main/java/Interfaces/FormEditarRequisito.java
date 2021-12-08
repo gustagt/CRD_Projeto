@@ -11,10 +11,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Angélica
- */
+
 public class FormEditarRequisito extends javax.swing.JFrame {
 
     /**

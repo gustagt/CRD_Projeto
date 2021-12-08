@@ -16,10 +16,6 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 
-/**
- *
- * @author GUst
- */
 public class FormProjetoAberto extends javax.swing.JFrame {
 
     Usuario usuario = new Usuario();
